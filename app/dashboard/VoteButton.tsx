@@ -25,8 +25,7 @@ export default function VoteButton({
             return;
         }
 
-        const db = createClient();
-        const { error } = await db
+        const { error } = await supabase
             .from("caption_votes")
             .insert({
                 caption_id: captionId,
@@ -35,7 +34,7 @@ export default function VoteButton({
             });
 
         if (error) {
-            setError("Vote failed");
+            setError(error.message);
         } else {
             setVoted(voteValue);
         }
@@ -49,9 +48,7 @@ export default function VoteButton({
                     onClick={() => submitVote(1)}
                     disabled={loading || voted !== null}
                     className={`px-3 py-1 rounded-lg text-sm font-medium transition-all ${
-                        voted === 1
-                            ? "bg-green-500 text-white"
-                            : "bg-gray-100 hover:bg-green-100 text-gray-700"
+                        voted === 1 ? "bg-green-500 text-white" : "bg-gray-100 hover:bg-green-100 text-gray-700"
                     } disabled:opacity-50`}
                 >
                     👍
@@ -60,9 +57,7 @@ export default function VoteButton({
                     onClick={() => submitVote(-1)}
                     disabled={loading || voted !== null}
                     className={`px-3 py-1 rounded-lg text-sm font-medium transition-all ${
-                        voted === -1
-                            ? "bg-red-500 text-white"
-                            : "bg-gray-100 hover:bg-red-100 text-gray-700"
+                        voted === -1 ? "bg-red-500 text-white" : "bg-gray-100 hover:bg-red-100 text-gray-700"
                     } disabled:opacity-50`}
                 >
                     👎
