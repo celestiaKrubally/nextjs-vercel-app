@@ -1,5 +1,4 @@
 import { createClient } from "@/utils/supabase/server";
-import { createClient as createDbClient } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
 import SignOutButton from "./SignOutButton";
 import VoteButton from "./VoteButton";
@@ -9,12 +8,7 @@ export default async function DashboardPage() {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) redirect("/login");
 
-    const db = createDbClient(
-        process.env.NEXT_PUBLIC_DB_URL!,
-        process.env.NEXT_PUBLIC_DB_ANON_KEY!
-    );
-
-    const { data: captions, error } = await db
+    const { data: captions, error } = await supabase
         .from("captions")
         .select("id, content, like_count")
         .limit(20);
