@@ -31,6 +31,7 @@ export default function VoteButton({
                 caption_id: captionId,
                 profile_id: profileId,
                 vote_value: voteValue,
+                created_datetime_utc: new Date().toISOString(),
             });
 
         if (error) {
