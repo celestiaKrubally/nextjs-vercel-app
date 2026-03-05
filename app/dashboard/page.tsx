@@ -2,6 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import SignOutButton from "./SignOutButton";
 import VoteButton from "./VoteButton";
+import ImageUploader from "./ImageUploader";
 
 export default async function DashboardPage() {
     const supabase = await createClient();
@@ -24,6 +25,7 @@ export default async function DashboardPage() {
             </header>
 
             <div className="max-w-3xl mx-auto px-6 py-10">
+                <ImageUploader />
                 <h2 className="text-2xl font-bold text-gray-800 mb-2">Captions</h2>
                 <p className="text-gray-500 text-sm mb-6">Vote on captions below</p>
 
